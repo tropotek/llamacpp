@@ -11,13 +11,13 @@
           "name": "Ornith 1.5 9B",
           "tool_call": true,
           "reasoning": true,
-          "limit": { "context": 65536, "output": 4096 }
+          "limit": { "context": 65536, "output": 16384 }
         },
         "Ornith-1.5-9B-uncensored.Q4_K_M.gguf": {
           "name": "Ornith 1.5 9B Uncensored",
           "tool_call": true,
           "reasoning": true,
-          "limit": { "context": 65536, "output": 4096 }
+          "limit": { "context": 65536, "output": 16384 }
         }
       }
     }
