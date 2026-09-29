@@ -1,0 +1,42 @@
+name: llamacpp
+
+services:
+  llama-cpp:
+    image: ghcr.io/ggml-org/llama.cpp:full-cuda
+    container_name: llama-cpp
+    volumes:
+      - ./models:/models
+    ports:
+      - "${LLAMA_PORT:-11435}:8080"
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    entrypoint: ["/app/llama-server"]
+    # Model and tuning come from .env; --alias makes /v1/models report the file name.
+    command: >
+      --model /models/${MODEL:-Ornith-1.5-9B-Q4_K_M.gguf}
+      --alias ${MODEL:-Ornith-1.5-9B-Q4_K_M.gguf}
+      --host 0.0.0.0
+      --port 8080
+      --n-gpu-layers ${N_GPU_LAYERS:-99}
+      --n-cpu-moe ${N_CPU_MOE:-0}
+      --ctx-size ${CTX_SIZE:-65536}
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+      -fa on
+      -np 1
+      --threads ${THREADS:-8}
+      --jinja
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
