@@ -19,20 +19,24 @@ services:
               capabilities: [gpu]
     entrypoint: ["/app/llama-server"]
     # Model and tuning come from .env; --alias makes /v1/models report the file name.
+    # --fit sizes the GPU/CPU split for CTX_SIZE, leaving FIT_TARGET MiB of VRAM free.
     command: >
       --model "/models/${MODEL:-Ornith-1.5-9B-Q4_K_M.gguf}"
       --alias "${MODEL:-Ornith-1.5-9B-Q4_K_M.gguf}"
       --host 0.0.0.0
       --port 8080
-      --n-gpu-layers ${N_GPU_LAYERS:-99}
-      --n-cpu-moe ${N_CPU_MOE:-0}
+      --n-gpu-layers ${N_GPU_LAYERS:-auto}
+      --fit-target ${FIT_TARGET:-256}
       --ctx-size ${CTX_SIZE:-65536}
-      --cache-type-k q8_0
-      --cache-type-v q8_0
+      --cache-type-k ${CACHE_TYPE_K:-q8_0}
+      --cache-type-v ${CACHE_TYPE_V:-q8_0}
+      --batch-size ${BATCH_SIZE:-2048}
+      --ubatch-size ${UBATCH_SIZE:-512}
       -fa on
       -np 1
       --threads ${THREADS:-4}
       --jinja
+      ${EXTRA_ARGS:-}
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
