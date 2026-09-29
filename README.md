@@ -13,7 +13,7 @@ Local llama.cpp `llama-server` in Docker with NVIDIA GPU offload, serving an Ope
 2. `cp .env.example .env` and set `MODEL` to a file name in `models/`.
 3. `docker compose up -d`
 
-The container shares port 11435 with ollama1's llama-cpp service; stop that one first.
+The container shares port 11435 with ollama1's llama-cpp service; run `docker compose -f docker-compose-llama.yml down` in ollama1 first.
 
 ## Switching models
 
@@ -50,3 +50,4 @@ The model id reported by `/v1/models` is the file name.
 ## opencode
 
 `opencode.json` defines a `llamacpp` provider for both Ornith 1.5 models. Copy it to your opencode config or project root.
+Its `baseURL` port and `limit.context` must match `LLAMA_PORT` and `CTX_SIZE` in `.env`.
