@@ -27,7 +27,7 @@ The model id reported by `/v1/models` is the file name.
 | `CTX_SIZE` | 65536 | Context length |
 | `N_GPU_LAYERS` | 99 | Layers offloaded to GPU (99 = all) |
 | `N_CPU_MOE` | 0 | MoE layers whose experts stay in system RAM |
-| `THREADS` | 8 | CPU threads |
+| `THREADS` | 4 | CPU threads; match physical cores, only matters when layers run on CPU |
 
 ## Endpoints
 
@@ -39,13 +39,13 @@ The model id reported by `/v1/models` is the file name.
 
 | Model | Size | `.env` settings | Notes |
 |---|---|---|---|
-| [Ornith-1.5-9B-Q4_K_M](https://huggingface.co/deepreinforce-ai) | 5.8 GB | defaults | Hybrid attention/SSM; only 8 of 32 layers keep KV cache, so 64k ctx is cheap. ~7.2 GB VRAM used |
-| Ornith-1.5-9B-uncensored.Q4_K_M | 5.6 GB | defaults | Same architecture as above |
+| [Ornith-1.5-9B-Q4_K_M](https://huggingface.co/ornith-ai/Ornith-1.5-9B-GGUF) | 5.8 GB | defaults | Hybrid attention/SSM; only 8 of 32 layers keep KV cache, so 64k ctx is cheap. ~7.2 GB VRAM used |
+| [Ornith-1.5-9B-uncensored.Q4_K_M](https://huggingface.co/mradermacher/Ornith-1.5-9B-uncensored-GGUF) | 5.6 GB | defaults | Same architecture as above |
 | [ornith-1.0-9b-Q4_K_M](https://huggingface.co/deepreinforce-ai/Ornith-1.0-9B-GGUF) | 5.6 GB | defaults | ~1 GB VRAM headroom left |
 | [Qwen3-4B-Instruct-2507-Q8_0](https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF) | 4.3 GB | `CTX_SIZE=32768` | ~7.5 GB VRAM used |
 | [Qwen2.5-Coder-7B-Instruct-Q6_K](https://huggingface.co/bartowski/Qwen2.5-Coder-7B-Instruct-GGUF) | 6.3 GB | `CTX_SIZE=32768` | Tool calls come back as raw text; chat only, not opencode |
-| [Qwen3-Coder-30B-A3B-Instruct-UD-Q3_K_XL](https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF) | 13.8 GB | `CTX_SIZE=32768`, `N_CPU_MOE=32` | ~10 tok/s, RAM-bandwidth bound; raise `N_CPU_MOE` to free VRAM |
-| Qwen3.6-27B-Q4_K_M | 16 GB | `CTX_SIZE=32768`, `N_GPU_LAYERS=20` | ~0.3 tok/s on an i7-3770; full offload hangs the machine |
+| [Qwen3-Coder-30B-A3B-Instruct-UD-Q3_K_XL](https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF) | 13.8 GB | `CTX_SIZE=32768`, `N_CPU_MOE=32`, `THREADS=8` | ~10 tok/s, RAM-bandwidth bound; raise `N_CPU_MOE` to free VRAM |
+| Qwen3.6-27B-Q4_K_M | 16 GB | `CTX_SIZE=32768`, `N_GPU_LAYERS=20`, `THREADS=8` | ~0.3 tok/s on an i7-3770; full offload hangs the machine |
 
 ## opencode
 

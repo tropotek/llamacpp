@@ -20,8 +20,8 @@ services:
     entrypoint: ["/app/llama-server"]
     # Model and tuning come from .env; --alias makes /v1/models report the file name.
     command: >
-      --model /models/${MODEL:-Ornith-1.5-9B-Q4_K_M.gguf}
-      --alias ${MODEL:-Ornith-1.5-9B-Q4_K_M.gguf}
+      --model "/models/${MODEL:-Ornith-1.5-9B-Q4_K_M.gguf}"
+      --alias "${MODEL:-Ornith-1.5-9B-Q4_K_M.gguf}"
       --host 0.0.0.0
       --port 8080
       --n-gpu-layers ${N_GPU_LAYERS:-99}
@@ -31,7 +31,7 @@ services:
       --cache-type-v q8_0
       -fa on
       -np 1
-      --threads ${THREADS:-8}
+      --threads ${THREADS:-4}
       --jinja
     restart: unless-stopped
     healthcheck:
