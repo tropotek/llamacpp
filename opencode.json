@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "llamacpp/Ornith-1.5-9B-Q4_K_M.gguf",
+  "model": "llamacpp/Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf",
   "provider": {
     "llamacpp": {
       "npm": "@ai-sdk/openai-compatible",
@@ -30,6 +30,15 @@
         "Qwen3-Coder-30B-A3B-Instruct-UD-Q3_K_XL.gguf": {
           "name": "Qwen3 Coder 30B-A3B UD-Q3_K_XL",
           "tool_call": true,
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
+        },
+        "Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf": {
+          "name": "Qwen3.6 35B-A3B UD-Q3_K_XL",
+          "tool_call": true,
+          "reasoning": true,
           "limit": {
             "context": 131072,
             "output": 32768
