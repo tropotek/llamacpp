@@ -45,17 +45,17 @@ The first request after a start is slow while weights page into memory.
 
 | Model | Size | `.env` settings | Speed (gen / prompt) |
 |---|---|---|---|
+| [ornith-1.0-9b-Q4_K_M](https://huggingface.co/deepreinforce-ai/Ornith-1.0-9B-GGUF) | 5.6 GB | defaults | |
 | [Ornith-1.5-9B-Q4_K_M](https://huggingface.co/ornith-ai/Ornith-1.5-9B-GGUF) (recommended) | 5.8 GB | defaults (64k, q8_0) | 52 / 1260 tok/s, fully on GPU |
 | | | `CTX_SIZE=131072`, q4_0 | 23 / 1020 tok/s |
 | | | `CTX_SIZE=262144`, q4_0 | 9 / 690 tok/s |
 | [Ornith-1.5-9B-uncensored.Q4_K_M](https://huggingface.co/mradermacher/Ornith-1.5-9B-uncensored-GGUF) | 5.6 GB | as above | Same architecture as above |
-| [Qwen3.6-35B-A3B-UD-Q3_K_XL](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) (recommended) | 16.8 GB | `CTX_SIZE=131072`, q4_0, `UBATCH_SIZE=2048`, model-card sampling in `EXTRA_ARGS` | 24–31 / 310 tok/s; thinking model, experts mostly in RAM |
+| [Qwen2.5-Coder-7B-Instruct-Q6_K](https://huggingface.co/bartowski/Qwen2.5-Coder-7B-Instruct-GGUF) | 6.3 GB | `CTX_SIZE=32768` | Tool calls come back as raw text; chat only, not opencode |
+| [Qwen3-4B-Instruct-2507-Q8_0](https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF) | 4.3 GB | `CTX_SIZE=32768` | |
 | [Qwen3-Coder-30B-A3B-Instruct-UD-Q3_K_XL](https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF) | 13.8 GB | `CTX_SIZE=131072`, q4_0, `UBATCH_SIZE=2048` | 14 / 640 tok/s; experts mostly in RAM |
 | | | `CTX_SIZE=262144`, q4_0, `UBATCH_SIZE=2048` | 7 / 560 tok/s; model's full native context |
-| [ornith-1.0-9b-Q4_K_M](https://huggingface.co/deepreinforce-ai/Ornith-1.0-9B-GGUF) | 5.6 GB | defaults | |
-| [Qwen3-4B-Instruct-2507-Q8_0](https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF) | 4.3 GB | `CTX_SIZE=32768` | |
-| [Qwen2.5-Coder-7B-Instruct-Q6_K](https://huggingface.co/bartowski/Qwen2.5-Coder-7B-Instruct-GGUF) | 6.3 GB | `CTX_SIZE=32768` | Tool calls come back as raw text; chat only, not opencode |
 | Qwen3.6-27B-Q4_K_M | 16 GB | `CTX_SIZE=32768`, `N_GPU_LAYERS=20` | ~0.3 tok/s on an i7-3770; full offload hangs the machine |
+| [Qwen3.6-35B-A3B-UD-Q3_K_XL](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) (recommended) | 16.8 GB | `CTX_SIZE=131072`, q4_0, `UBATCH_SIZE=2048`, model-card sampling in `EXTRA_ARGS` | 24–31 / 310 tok/s; thinking model, experts mostly in RAM |
 
 Speeds are warm, with a 4k-token prompt, on an i7-3770 with ~0.8 GB of VRAM used by the desktop.
 
