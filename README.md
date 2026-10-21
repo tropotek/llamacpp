@@ -55,7 +55,7 @@ The first request after a start is slow while weights page into memory.
 | [Qwen3-Coder-30B-A3B-Instruct-UD-Q3_K_XL](https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF) | 13.8 GB | `CTX_SIZE=131072`, q4_0, `UBATCH_SIZE=2048` | 14 / 640 tok/s; experts mostly in RAM |
 | | | `CTX_SIZE=262144`, q4_0, `UBATCH_SIZE=2048` | 7 / 560 tok/s; model's full native context |
 | Qwen3.6-27B-Q4_K_M | 16 GB | `CTX_SIZE=32768`, `N_GPU_LAYERS=20` | ~0.3 tok/s on an i7-3770; full offload hangs the machine |
-| [Qwen3.6-35B-A3B-UD-Q3_K_XL](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) (recommended) | 16.8 GB | `CTX_SIZE=131072`, q4_0, `UBATCH_SIZE=2048`, model-card sampling in `EXTRA_ARGS` | 24–31 / 310 tok/s; thinking model, experts mostly in RAM |
+| [Qwen3.6-35B-A3B-UD-Q3_K_XL](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF) (recommended) | 16.8 GB | `CTX_SIZE=262144`, q4_0, `UBATCH_SIZE=2048`, model-card sampling in `EXTRA_ARGS` | 24–31 / 310 tok/s; thinking model, experts mostly in RAM |
 
 Speeds are warm, with a 4k-token prompt, on an i7-3770 with ~0.8 GB of VRAM used by the desktop.
 
