@@ -43,6 +43,15 @@
             "context": 262144,
             "output": 32768
           }
+        },
+        "Qwen3.8-Flash-Next-UD-IQ3_XXS.gguf": {
+          "name": "Qwen3.8 Flash-Next UD-IQ3_XXS",
+          "tool_call": true,
+          "reasoning": true,
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
         }
       }
     }
